@@ -816,7 +816,6 @@ const PROJECTS = [
   // ── ПРОЕКТ 3 ── AI Design Workflow ───────────────────────
   {
     id: 3,
-    hidden: true, // временно скрыт
     title: { ru: 'AI Design Workflow', en: 'AI Design Workflow' },
     cardDesc: { ru: 'Интеграция Claude Code и MCP в дизайн-процесс', en: 'Integrating Claude Code and MCP into the design process' },
     bannerColor: '#185FA5',
@@ -884,13 +883,13 @@ const PROJECTS = [
       { title: 'Model Context Protocol — Wikipedia', url: 'https://en.wikipedia.org/wiki/Model_Context_Protocol' },
     ],
 
-    tags: 'AI, Claude Code, MCP, Figma, Workflow'
+    tags: 'AI, Claude Code, MCP, Figma, Workflow',
+    categories: { industry: ['ai'], type: ['service'] },
   },
 
   // ── ПРОЕКТ 4 ── DroneDrop ────────────────────────────
   {
     id: 4,
-    hidden: true, // временно скрыт
     title: { ru: 'DroneDrop', en: 'DroneDrop' },
     cardDesc: { ru: 'Автономная дрон-доставка последней мили', en: 'Autonomous last-mile drone delivery' },
     bannerColor: '#993556',
@@ -931,7 +930,8 @@ const PROJECTS = [
 
     results: 'Ключевые метрики.\n\nUser Experience: Time to Delivery, First Attempt Delivery Rate, Successful QR Pickup Rate, Delivery Confidence Score, CSAT.\n\nBusiness: Cost per Delivery, Fleet Utilization, Failed Delivery Rate, Operational Efficiency, Cost per Successful Delivery.\n\nReflection: проектирование автономных сервисов — это не столько задача создания интерфейса, сколько проектирование доверия между человеком и системой. Пользователь не обязан понимать, как работает автономный дрон, но он должен всегда понимать, что происходит с его заказом, почему система принимает те или иные решения и что произойдёт дальше. Именно прозрачность процессов становится ключевым фактором успешного пользовательского опыта в продуктах нового поколения.',
 
-    tags: 'UX, Product Design, Logistics, Drone Delivery, Россия'
+    tags: 'UX, Product Design, Logistics, Drone Delivery, Россия',
+    categories: { industry: ['logistics'], type: ['app'] },
   },
 
   // ── ПРОЕКТ 5 ── Электронное меню «Панорама Лаундж» ───────
@@ -940,7 +940,6 @@ const PROJECTS = [
     title: { ru: 'Panorama Lounge', en: 'Panorama Lounge' },
     cardDesc: { ru: 'Цифровое меню для ресторана премиум-класса', en: 'Digital menu for a premium restaurant' },
     bannerColor: '#8B5E3C',
-    hidden: true, // временно скрыт
     cardImg: 'assets/панорама.jpg',
     bannerImg: 'assets/Панорама_BIG.jpg',
     images: [],
@@ -1001,7 +1000,8 @@ const PROJECTS = [
 
     results: 'Предложенная концепция позволяла решить сразу несколько задач: сократить время выбора блюд, увеличить видимость сезонных предложений, снизить нагрузку на персонал, повысить вероятность бронирования ещё до визита, предоставить владельцу данные для принятия продуктовых решений на основе поведения пользователей.\n\nКлючевые метрики: среднее время выбора блюда, глубина просмотра меню, конверсия в бронирование, конверсия в заказ, средний чек, доля заказов сезонных предложений, удовлетворённость пользователей (NPS/CSAT).',
 
-    tags: 'UX, Product Design, HoReCa, Digital Menu, Figma'
+    tags: 'UX, Product Design, HoReCa, Digital Menu, Figma',
+    categories: { industry: ['horeca'], type: ['site'] },
   },
 
   // ── ПРОЕКТ 6 ── Разбуди Деда Мороза ───────────────────────
@@ -1012,7 +1012,6 @@ const PROJECTS = [
     bannerColor: '#B23A48',
     bannerImg: 'assets/Beyosa.ru_BIG.png',
     cardImg: 'assets/Beyosa.ru.jpg',
-    hidden: true,
     images: [],
 
     context: '«Разбуди Деда Мороза» — сезонный e-commerce лендинг для товара Body Pillow (обнимашка), выстроенный вокруг игровой механики коллективного прогресса: каждая покупка становится вкладом в общую новогоднюю миссию.',
@@ -1073,7 +1072,8 @@ const PROJECTS = [
 
     results: 'Ожидаемый эффект: рост конверсии за счёт ощущения срочности, рост возвратов благодаря return-loop вокруг прогресса, увеличение времени на сайте и рост социального шеринга.',
 
-    tags: 'UX, Growth Design, E-commerce, Gamification, Landing Page'
+    tags: 'UX, Growth Design, E-commerce, Gamification, Landing Page',
+    categories: { industry: ['ecommerce'], type: ['site'] },
   },
 
   // ── ПРОЕКТ 7 ── Доброград: платформа ипотеки и жилья ─────
@@ -1084,7 +1084,6 @@ const PROJECTS = [
     bannerColor: '#3B6E8F',
     bannerImg: 'assets/Dobrograd_BIG.png',
     cardImg: 'assets/Dobrograd.jpg',
-    hidden: true,
     images: [],
 
     context: 'Доброград — платформа прозрачного выбора ипотеки и жилья, которая объединяет ипотечные программы, банковские предложения, рассрочки от застройщика и калькулятор платежей в едином сценарии выбора.',
@@ -1145,7 +1144,8 @@ const PROJECTS = [
 
     results: 'Ожидаемый эффект для пользователя — снижение тревожности, ускорение принятия решения и рост доверия к процессу. Для бизнеса — рост конверсии в заявку, снижение зависимости от менеджеров и увеличение числа сравнений (engagement loop).',
 
-    tags: 'UX Research, Product Design, Fintech, PropTech, Figma'
+    tags: 'UX Research, Product Design, Fintech, PropTech, Figma',
+    categories: { industry: ['realestate', 'finance'], type: ['site'] },
   },
 
 
@@ -1691,21 +1691,31 @@ function switchLanguage(lang) {
 
 const FILTER_META = {
   industry: [
-    { key: 'finance', ru: 'Финансы', en: 'Finance' },
-    { key: 'ai',      ru: 'AI',      en: 'AI' },
+    { key: 'finance',    ru: 'Финансы',      en: 'Finance' },
+    { key: 'ai',         ru: 'AI',           en: 'AI' },
+    { key: 'logistics',  ru: 'Логистика',    en: 'Logistics' },
+    { key: 'horeca',     ru: 'HoReCa',       en: 'HoReCa' },
+    { key: 'ecommerce',  ru: 'E-commerce',   en: 'E-commerce' },
+    { key: 'realestate', ru: 'Недвижимость', en: 'Real Estate' },
   ],
   type: [
     { key: 'app',     ru: 'Приложения', en: 'Apps' },
     { key: 'service', ru: 'Сервисы',    en: 'Services' },
+    { key: 'site',    ru: 'Сайты',      en: 'Sites' },
   ],
 };
 
 // Подписи тегов под карточкой (единственное число, короче, чем пилюли фильтра)
 const TAG_LABELS = {
-  finance: { ru: 'Финансы',    en: 'Finance' },
-  ai:      { ru: 'AI',         en: 'AI' },
-  app:     { ru: 'Приложение', en: 'App' },
-  service: { ru: 'Сервис',     en: 'Service' },
+  finance:    { ru: 'Финансы',      en: 'Finance' },
+  ai:         { ru: 'AI',           en: 'AI' },
+  logistics:  { ru: 'Логистика',    en: 'Logistics' },
+  horeca:     { ru: 'HoReCa',       en: 'HoReCa' },
+  ecommerce:  { ru: 'E-commerce',   en: 'E-commerce' },
+  realestate: { ru: 'Недвижимость', en: 'Real Estate' },
+  app:        { ru: 'Приложение',   en: 'App' },
+  service:    { ru: 'Сервис',       en: 'Service' },
+  site:       { ru: 'Сайт',         en: 'Site' },
 };
 
 let filterMode = 'industry'; // 'industry' | 'type'
