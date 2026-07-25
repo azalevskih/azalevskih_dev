@@ -24,6 +24,8 @@
   --hairline:    #e2e2de;   /* тонкие разделительные линии, как в референсе */
   --accent:      #111111;   /* акцент = чёрный, без цветной подсветки */
   --nav-h:       64px;
+  --nav-offset-top: 20px;   /* отступ от края экрана до плавающей навигации */
+  --nav-content-gap: 20px;  /* отступ между навигацией и контентом под ней */
 }
 
 
@@ -76,15 +78,18 @@ body {
    На главной странице баннер светлый (Spline на белом фоне),
    поэтому нав по умолчанию тёмная — см. класс .home-page ниже.
 ============================================================ */
-/* Фиксация навигации для всех страниц */
+/* Фиксация навигации для всех страниц — плавающая карточка
+   с отступом от края экрана со всех сторон */
 #main-nav {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%; /* Убедитесь, что нав всегда на 100% */
+  top: var(--nav-offset-top);
+  left: var(--nav-offset-top);
+  right: var(--nav-offset-top);
+  max-width: 1400px;
+  margin: 0 auto;
   z-index: 10010;
   background: var(--white);
+  border-radius: 999px;
 }
 
 .nav-grid {
@@ -285,7 +290,7 @@ body[data-page="contact"] .nav-links a[data-page="contact"] {
   body.page-about main {
     flex: 1 1 auto;
     min-height: 0;
-    padding-top: var(--nav-h);
+    padding-top: calc(var(--nav-h) + var(--nav-offset-top) + var(--nav-content-gap));
     padding-bottom: 24px;
     overflow: hidden;
   }
@@ -717,7 +722,7 @@ body[data-page="contact"] .nav-links a[data-page="contact"] {
   display: flex;
   align-items: flex-end;
   padding: 48px;
-  margin-top: var(--nav-h);
+  margin-top: calc(var(--nav-h) + var(--nav-offset-top) + var(--nav-content-gap));
 }
 
 .proj-banner-bg {
@@ -817,7 +822,7 @@ body[data-page="contact"] .nav-links a[data-page="contact"] {
   align-items: flex-start;
   gap: 12px;
   position: sticky;
-  top: calc(var(--nav-h) + 40px);
+  top: calc(var(--nav-h) + var(--nav-offset-top) + var(--nav-content-gap) + 20px);
   margin-bottom: 0;
   align-self: start;
 }
@@ -952,18 +957,21 @@ body[data-page="contact"] .nav-links a[data-page="contact"] {
    АДАПТИВ (мобильные)
 ============================================================ */
 @media (max-width: 768px) {
-  #main-nav {
-    padding: 0 14px;
-    height: calc(var(--nav-h) + env(safe-area-inset-top));
-    padding-top: env(safe-area-inset-top);
+  :root {
+    --nav-offset-top: 12px;
+    --nav-content-gap: 16px;
   }
 
-  /* Убираем двойной отступ: у #main-nav уже есть свой padding,
-     внутренний .container больше не должен добавлять ещё один —
+  #main-nav {
+    top: calc(var(--nav-offset-top) + env(safe-area-inset-top));
+  }
+
+  /* Убираем двойной отступ: у #main-nav уже есть скругление и тень,
+     внутренний .container отвечает только за padding содержимого —
      иначе на узких экранах навигации не хватает места и она
      не помещается в экран целиком. */
   #main-nav .container {
-    padding: 0;
+    padding: 0 16px;
     max-width: none;
   }
 
@@ -1032,7 +1040,7 @@ body[data-page="contact"] .nav-links a[data-page="contact"] {
     position: relative;
     z-index: 3;
     background: var(--white);
-    padding: calc(var(--nav-h) + env(safe-area-inset-top) + 24px) 24px 120px;
+    padding: calc(var(--nav-h) + var(--nav-offset-top) + env(safe-area-inset-top) + 24px) 24px 120px;
   }
   .info-block--about    { max-width: none; }
   .banner-actions        { flex-direction: column; align-items: stretch; gap: 12px; }
@@ -1045,7 +1053,7 @@ body[data-page="contact"] .nav-links a[data-page="contact"] {
   .projects-track-wrapper { padding: 100px 24px 120px; }
   #contact              { padding: 60px 0; }
   .proj-body            { padding: 40px 24px 80px; }
-  .proj-banner          { padding: 48px 24px; margin-top: calc(var(--nav-h) + env(safe-area-inset-top)); }
+  .proj-banner          { padding: 48px 24px; margin-top: calc(var(--nav-h) + var(--nav-offset-top) + env(safe-area-inset-top) + var(--nav-content-gap)); }
   .proj-section         { grid-template-columns: 1fr; row-gap: 16px; }
   .proj-section-head    { grid-column: 1; position: static; flex-direction: row; align-items: center; justify-content: space-between; width: 100%; }
   .proj-section-body    { grid-column: 1; }
@@ -1056,7 +1064,8 @@ body[data-page="contact"] .nav-links a[data-page="contact"] {
    навигация ужимается ещё немного, но всегда остаётся в один ряд
    и полностью помещается в ширину экрана */
 @media (max-width: 360px) {
-  #main-nav { padding: 0 10px; }
+  #main-nav { left: 8px; right: 8px; }
+  #main-nav .container { padding: 0 12px; }
   .nav-grid { gap: 4px; }
   .nav-logo-icon { height: 20px; }
   .nav-grid .nav-links a { font-size: 10px; }
@@ -1442,8 +1451,8 @@ body.lang-mode-en .lang-ru {
     justify-content: center;
     min-height: 100vh;
     width: 100%;
-    padding-top: var(--nav-h);
-    padding-bottom: var(--nav-h);
+    padding-top: calc(var(--nav-h) + var(--nav-offset-top) + var(--nav-content-gap));
+    padding-bottom: calc(var(--nav-h) + var(--nav-offset-top));
     margin: 0;
     background: var(--white);
     box-sizing: border-box;
