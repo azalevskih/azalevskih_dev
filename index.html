@@ -18,28 +18,41 @@
   ============================================================ -->
   <nav id="main-nav" class="home-page">
     <div class="container nav-grid">
-      <div class="nav-left">
-        <a href="#" class="nav-logo" onclick="navigateTo('about');return false;">
-          <span class="nav-logo-full"><span class="lang-ru">Азалия Замалетдинова</span><span class="lang-en">Azaliya Zamaletdinova</span></span>
-          <span class="nav-logo-short"><span class="lang-ru">А.З.</span><span class="lang-en">A.Z.</span></span>
-        </a>
 
+      <div class="nav-left">
         <button type="button" class="nav-back-btn" onclick="handleNavBack();return false;">
           <span class="nav-back-arrow" aria-hidden="true">←</span>
           <span class="lang-ru">Назад</span><span class="lang-en">Back</span>
         </button>
+
+        <ul class="nav-links nav-links--site">
+          <li><a href="#" data-page="about" onclick="navigateTo('about');return false;">
+            <span class="lang-ru">О нас</span><span class="lang-en">About</span>
+          </a></li>
+          <li><a href="#" data-page="experience" onclick="navigateTo('experience');return false;">
+            <span class="lang-ru">Опыт</span><span class="lang-en">Experience</span>
+          </a></li>
+          <li><a href="#" data-page="projects" onclick="navigateTo('projects');return false;">
+            <span class="lang-ru">Проекты</span><span class="lang-en">Projects</span>
+          </a></li>
+        </ul>
       </div>
 
-      <ul class="nav-links nav-links--site">
-        <li><a href="#" data-page="projects" onclick="navigateTo('projects');return false;">
-          <span class="lang-ru">Проекты</span><span class="lang-en">Projects</span>
-        </a></li>
-      </ul>
+      <a href="#" class="nav-logo" onclick="navigateTo('about');return false;" aria-label="На главную">
+        <img src="assets/logo.svg" alt="Логотип" class="nav-logo-icon">
+      </a>
 
-      <div class="lang-switch-group">
-        <button type="button" id="lang-ru-btn" class="lang-switch active" onclick="switchLanguage('ru')">RU</button>
-        <button type="button" id="lang-en-btn" class="lang-switch" onclick="switchLanguage('en')">EN</button>
+      <div class="nav-right">
+        <div class="lang-switch-group">
+          <button type="button" id="lang-ru-btn" class="lang-switch active" onclick="switchLanguage('ru')">RU</button>
+          <button type="button" id="lang-en-btn" class="lang-switch" onclick="switchLanguage('en')">EN</button>
+        </div>
+
+        <a href="#" class="nav-cta" onclick="navigateTo('brief');return false;">
+          <span class="lang-ru">Заполнить бриф</span><span class="lang-en">Fill the brief</span>
+        </a>
       </div>
+
     </div>
   </nav>
 

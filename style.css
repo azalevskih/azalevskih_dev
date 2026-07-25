@@ -98,17 +98,18 @@ body {
 .nav-left {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 40px;
   justify-self: start;
-  position: relative;
 }
 
-.nav-grid .nav-links {
-  justify-self: center;
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-self: end;
 }
 
 .nav-grid .lang-switch-group {
-  justify-self: end;
   display: flex;
   gap: 6px;
 }
@@ -136,30 +137,24 @@ body {
   color: var(--black);
 }
 
+/* Лого — svg-иконка по центру навигации */
 .nav-logo {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--black);
-  text-decoration: none;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.nav-logo-short {
-  display: none;
+.nav-logo-icon {
+  height: 34px;
+  width: auto;
+  display: block;
 }
 
-/* Кнопка "Назад" — лого "А. З." всегда стоит на своём исходном месте
-   (единственный элемент в обычном потоке внутри nav-left), кнопка
-   "Назад" появляется абсолютным позиционированием слева от него и
-   никак не сдвигает лого. */
+/* Кнопка "Назад" — по умолчанию скрыта, появляется в потоке
+   слева от ссылок, когда открыт оверлей проекта. */
 .nav-back-btn {
   display: none;
-  position: absolute;
-  right: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  margin-right: 16px;
   align-items: center;
   gap: 8px;
   background: none;
@@ -190,10 +185,7 @@ body {
 }
 
 /* Кнопка "Назад" на десктопе показывается только на странице
-   проекта (когда открыт оверлей #project-overlay). Она стоит
-   абсолютным позиционированием слева от лого (см. .nav-back-btn
-   выше: position: absolute; right: 100%), поэтому не сдвигает
-   ни лого, ни остальные элементы навигации. */
+   проекта (когда открыт оверлей #project-overlay). */
 #main-nav.project-open .nav-back-btn {
   display: inline-flex;
 }
@@ -203,7 +195,7 @@ body {
 
 .nav-links {
   display: flex;
-  gap: 40px;
+  gap: 32px;
   list-style: none;
 }
 
@@ -212,11 +204,11 @@ body {
 }
 
 .nav-links a {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--black);
   text-decoration: none;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   transition: opacity 0.2s;
 }
@@ -226,16 +218,40 @@ body {
 }
 
 /* Текущий раздел в навигации выделяется курсивным жирным начертанием —
-   и в верхней навигации ("Проекты"), и в нижней ("Опыт" / "Контакты").
-   На главной странице тем же начертанием выделяется имя-лого —
-   как маркер того, что открыт блок "Обо мне". */
+   и в верхней навигации ("О нас" / "Опыт" / "Проекты"), и в нижней
+   ("Опыт" / "Бриф" / "Контакты"). */
+body[data-page="about"] .nav-links a[data-page="about"],
+body[data-page="experience"] .nav-links a[data-page="experience"],
 body[data-page="projects"] .nav-links a[data-page="projects"],
 body[data-page="experience"] footer a[data-page="experience"],
 body[data-page="brief"] footer a[data-page="brief"],
-body[data-page="contact"] footer a[data-page="contact"],
-body[data-page="about"] .nav-logo {
+body[data-page="contact"] footer a[data-page="contact"] {
   font-style: italic;
   font-weight: 700;
+}
+
+/* Кнопка-пилюля "Заполнить бриф" — справа в навигации */
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 26px;
+  border: 1px solid var(--black);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--white);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-cta:hover {
+  background: var(--black);
+  color: var(--white);
 }
 
 .lang-switch {
@@ -1017,60 +1033,62 @@ footer .nav-grid > a:last-child {
   }
 
   .nav-left {
-    gap: 6px;
+    gap: 14px;
     min-width: 0;
   }
 
-  .nav-logo {
-    font-size: 16px;
-    letter-spacing: 0.04em;
-    white-space: nowrap;
-    overflow: visible;
-    text-overflow: clip;
-    max-width: none;
-    display: inline-block;
-  }
-
-  .nav-logo-full {
-    display: none;
-  }
-
-  .nav-logo-short {
-    display: inline-block;
+  .nav-logo-icon {
+    height: 24px;
   }
 
   .nav-back-btn {
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 0.04em;
-    gap: 0;
-    margin-right: 8px;
+    gap: 4px;
     white-space: nowrap;
   }
 
-  /* На мобильных кнопка "Назад" по-прежнему нужна */
+  /* На мобильных кнопка "Назад" по-прежнему нужна; ссылки в этот
+     момент прячем, чтобы освободить место в одну строку. */
   #main-nav.project-open .nav-back-btn,
   #main-nav.sub-page-open .nav-back-btn {
     display: inline-flex;
   }
 
+  #main-nav.project-open .nav-links--site,
+  #main-nav.sub-page-open .nav-links--site {
+    display: none;
+  }
+
   .nav-grid .nav-links {
-    gap: 0;
+    gap: 10px;
     min-width: 0;
   }
 
   .nav-grid .nav-links a {
-    font-size: 14px;
-    letter-spacing: 0.04em;
+    font-size: 11px;
+    letter-spacing: 0.02em;
     white-space: nowrap;
   }
 
+  .nav-right {
+    gap: 8px;
+  }
+
+  /* На узких экранах кнопка "Заполнить бриф" ужимается,
+     чтобы поместиться рядом с переключателем языка */
+  .nav-cta {
+    padding: 9px 14px;
+    font-size: 11px;
+  }
+
   .lang-switch-group {
-    gap: 6px;
+    gap: 4px;
   }
 
   .lang-switch {
-    font-size: 13px;
-    padding: 5px 8px;
+    font-size: 12px;
+    padding: 5px 7px;
   }
 
   footer {
@@ -1123,9 +1141,10 @@ footer .nav-grid > a:last-child {
 @media (max-width: 360px) {
   #main-nav { padding: 0 10px; }
   .nav-grid { gap: 4px; }
-  .nav-logo { font-size: 14px; }
-  .nav-grid .nav-links a { font-size: 12px; }
-  .lang-switch { font-size: 11px; padding: 4px 6px; }
+  .nav-logo-icon { height: 20px; }
+  .nav-grid .nav-links a { font-size: 10px; }
+  .nav-cta { padding: 8px 10px; font-size: 10px; }
+  .lang-switch { font-size: 10px; padding: 4px 5px; }
   footer { padding: 0 10px; }
   footer a { font-size: 12px !important; }
 }
