@@ -495,6 +495,7 @@ const PROJECTS = [
     results: 'Следующим этапом после разработки должен стать A/B-тест.\n\nКлючевые метрики:\n— Time to Complete Payment — время выполнения перевода\n— Task Success Rate — доля успешно завершённых операций\n— Drop-off Rate — процент пользователей, покинувших сценарий\n— Number of Steps — количество действий до завершения перевода\n\nОжидаемый результат — сокращение времени выполнения задачи, снижение числа отказов и рост удобства ежедневных операций.\n\nВо время работы над кейсом я ещё раз убедилась, что улучшение продукта не всегда требует создания новых функций. Иногда самый ценный сценарий уже существует — просто путь к нему оказывается слишком длинным. Хороший мобильный банк не заставляет пользователя искать привычное действие: он предугадывает его намерение и помогает выполнить задачу за минимальное количество шагов.',
 
     tags: 'UX Research, Product Design, Fintech, Mobile Banking, A/B Testing, Figma',
+    categories: { industry: ['finance'], type: ['app'] },
 
     references: [
       // Блок 1: Общие показатели аудитории и активности
@@ -612,6 +613,7 @@ const PROJECTS = [
     ],
 
     tags:     'UX Research, Product Design, AI, Fintech, Figma',
+    categories: { industry: ['finance', 'ai'], type: ['app'] },
   },
 
   // ── ПРОЕКТ 1 ── Core Treasury ────────────────────────────────
@@ -716,7 +718,8 @@ const PROJECTS = [
       { title: 'Digital banking и ликвидность (2025)', url: 'https://wjarr.com/sites/default/files/fulltext_pdf/WJARR-2025-0576.pdf' },
     ],
 
-    tags: 'UX, Product Design, Fintech, Treasury, Enterprise SaaS'
+    tags: 'UX, Product Design, Fintech, Treasury, Enterprise SaaS',
+    categories: { industry: ['finance'], type: ['service'] },
   },
 
   // ── ПРОЕКТ 2 ── Ai PM ───────────────────────────────────
@@ -806,7 +809,8 @@ const PROJECTS = [
       { title: 'GitHub Copilot', url: 'https://arxiv.org/abs/2410.02091?utm_source' },
     ],
 
-    tags: 'AI, Product Design, UX Research, Enterprise, SaaS'
+    tags: 'AI, Product Design, UX Research, Enterprise, SaaS',
+    categories: { industry: ['ai'], type: ['service'] },
   },
 
   // ── ПРОЕКТ 3 ── AI Design Workflow ───────────────────────
@@ -1623,6 +1627,7 @@ function navigateTo(page) {
   // Карточки могли устареть по языку, пока мы были на другой странице —
   // досчитываем их именно сейчас, а не при каждом переключении языка.
   if (page === 'projects' && cardsNeedRerender) {
+    renderFilterPills();
     renderProjectCards();
     cardsNeedRerender = false;
   }
@@ -1662,6 +1667,7 @@ function switchLanguage(lang) {
   // она сейчас видна — на остальных страницах это лишняя работа,
   // перерисуем при переходе туда (навигация ниже).
   if (currentPage === 'projects') {
+    renderFilterPills();
     renderProjectCards();
     cardsNeedRerender = false;
   } else {
@@ -1678,6 +1684,74 @@ function switchLanguage(lang) {
 
 
 /* ============================================================
+   ФИЛЬТРЫ СТРАНИЦЫ "КЕЙСЫ" — переключатель "По отраслям" / "По
+   типу работ" + пилюли-фильтры. Категории для каждого кейса
+   заданы в PROJECTS → p.categories = { industry: [...], type: [...] }.
+============================================================ */
+
+const FILTER_META = {
+  industry: [
+    { key: 'finance', ru: 'Финансы', en: 'Finance' },
+    { key: 'ai',      ru: 'AI',      en: 'AI' },
+  ],
+  type: [
+    { key: 'app',     ru: 'Приложения', en: 'Apps' },
+    { key: 'service', ru: 'Сервисы',    en: 'Services' },
+  ],
+};
+
+// Подписи тегов под карточкой (единственное число, короче, чем пилюли фильтра)
+const TAG_LABELS = {
+  finance: { ru: 'Финансы',    en: 'Finance' },
+  ai:      { ru: 'AI',         en: 'AI' },
+  app:     { ru: 'Приложение', en: 'App' },
+  service: { ru: 'Сервис',     en: 'Service' },
+};
+
+let filterMode = 'industry'; // 'industry' | 'type'
+let activeFilter = null;      // ключ выбранной пилюли или null (показать все)
+
+// Переключение вкладки "По отраслям" / "По типу работ"
+function setFilterMode(mode) {
+  filterMode = mode;
+  activeFilter = null;
+
+  document.querySelectorAll('.cases-mode-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+
+  renderFilterPills();
+  renderProjectCards();
+}
+
+// Клик по пилюле-фильтру — повторный клик по активной пилюле сбрасывает фильтр
+function toggleFilter(key) {
+  activeFilter = (activeFilter === key) ? null : key;
+  renderFilterPills();
+  renderProjectCards();
+}
+
+function renderFilterPills() {
+  const wrap = document.getElementById('cases-filter-pills');
+  if (!wrap) return;
+
+  wrap.innerHTML = FILTER_META[filterMode].map(opt => {
+    const label = opt[currentLang] || opt.ru;
+    const isActive = activeFilter === opt.key;
+    return `<button type="button" class="cases-filter-pill${isActive ? ' active' : ''}" onclick="toggleFilter('${opt.key}')">${label}</button>`;
+  }).join('');
+}
+
+function getVisibleProjects() {
+  return PROJECTS.filter(p => !p.hidden).filter(p => {
+    if (!activeFilter) return true;
+    const list = (p.categories && p.categories[filterMode]) || [];
+    return list.includes(activeFilter);
+  });
+}
+
+
+/* ============================================================
    КАРТОЧКИ ПРОЕКТОВ — рендер из массива PROJECTS (GRID версия)
 ============================================================ */
 
@@ -1685,19 +1759,23 @@ function renderProjectCards() {
   const track = document.getElementById('projects-track');
   if (!track) return;
 
-  track.innerHTML = PROJECTS.filter(p => !p.hidden).map(p => {
+  const visible = getVisibleProjects();
+
+  track.innerHTML = visible.map(p => {
     const title = (p.title && p.title[currentLang]) || (p.title && p.title.ru) || '';
-    const desc = (p.cardDesc && p.cardDesc[currentLang]) || (p.cardDesc && p.cardDesc.ru) || '';
     const bg = (p.cardImg || p.bannerImg) ? `background-image: url('${p.cardImg || p.bannerImg}');` : 'background: #f0f0f0;';
+
+    const tagKeys = [...(p.categories?.type || []), ...(p.categories?.industry || [])];
+    const tags = tagKeys.map(key => (TAG_LABELS[key] && (TAG_LABELS[key][currentLang] || TAG_LABELS[key].ru)) || key).join(' · ');
 
     return `
       <div class="project-card" data-id="${p.id}" onclick="openProject(${p.id})">
-        <div class="card-bg" style="${bg}">
-          <div class="card-overlay"></div>
+        <div class="card-media">
+          <div class="card-bg" style="${bg}"></div>
         </div>
-        <div class="card-info">
+        <div class="card-caption">
           <div class="card-title">${title}</div>
-          <div class="card-desc">${desc}</div>
+          <div class="card-tags">${tags}</div>
         </div>
       </div>
     `;
@@ -1754,6 +1832,7 @@ function initMobileAvatarFade() {
    ИНИЦИАЛИЗАЦИЯ
 ============================================================ */
 window.addEventListener('DOMContentLoaded', () => {
+  renderFilterPills();
   renderProjectCards();
   navigateTo('about');
   initAvatarHover();

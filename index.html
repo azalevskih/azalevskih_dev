@@ -30,7 +30,7 @@
             <span class="lang-ru">azalevskih</span><span class="lang-en">About</span>
           </a></li>
           <li><a href="#" data-page="projects" onclick="navigateTo('projects');return false;">
-            <span class="lang-ru">Проекты</span><span class="lang-en">Projects</span>
+            <span class="lang-ru">Кейсы</span><span class="lang-en">Cases</span>
           </a></li>
           <li><a href="#" data-page="brief" onclick="navigateTo('brief');return false;">
             <span class="lang-ru">Бриф</span><span class="lang-en">Brief</span>
@@ -227,6 +227,26 @@
          СТРАНИЦА: ПРОЕКТЫ
     ============================================================ -->
     <section id="projects-page" class="page">
+
+      <div class="cases-header container">
+        <h1 class="cases-title">
+          <span class="lang-ru">Все кейсы</span><span class="lang-en">All Cases</span>
+        </h1>
+
+        <div class="cases-mode-toggle">
+          <button type="button" class="cases-mode-btn active" data-mode="industry" onclick="setFilterMode('industry')">
+            <span class="lang-ru">По отраслям</span><span class="lang-en">By Industry</span>
+          </button>
+          <button type="button" class="cases-mode-btn" data-mode="type" onclick="setFilterMode('type')">
+            <span class="lang-ru">По типу работ</span><span class="lang-en">By Type of Work</span>
+          </button>
+        </div>
+
+        <div class="cases-filter-pills" id="cases-filter-pills">
+          <!-- пилюли-фильтры генерируются в script.js -->
+        </div>
+      </div>
+
       <div id="projects-wrapper">
         <div class="projects-track-wrapper">
           <div class="projects-track" id="projects-track">
