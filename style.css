@@ -240,10 +240,8 @@ body {
 /* Текущий раздел в навигации выделяется курсивным жирным начертанием —
    в единой верхней навигации (О нас / Опыт / Проекты / Бриф / Контакты). */
 body[data-page="about"] .nav-links a[data-page="about"],
-body[data-page="experience"] .nav-links a[data-page="experience"],
 body[data-page="projects"] .nav-links a[data-page="projects"],
-body[data-page="brief"] .nav-links a[data-page="brief"],
-body[data-page="contact"] .nav-links a[data-page="contact"] {
+body[data-page="brief"] .nav-links a[data-page="brief"] {
   font-style: italic;
   font-weight: 700;
 }
