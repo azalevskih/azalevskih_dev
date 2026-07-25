@@ -616,7 +616,7 @@ body[data-page="brief"] .nav-links a[data-page="brief"] {
 }
 
 .cases-header {
-  padding-top: 64px;
+  padding-top: 160px;
   padding-bottom: 8px;
   display: flex;
   flex-direction: column;
