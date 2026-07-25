@@ -1776,7 +1776,10 @@ function renderProjectCards() {
     const bg = (p.cardImg || p.bannerImg) ? `background-image: url('${p.cardImg || p.bannerImg}');` : 'background: #f0f0f0;';
 
     const tagKeys = [...(p.categories?.type || []), ...(p.categories?.industry || [])];
-    const tags = tagKeys.map(key => (TAG_LABELS[key] && (TAG_LABELS[key][currentLang] || TAG_LABELS[key].ru)) || key).join(' · ');
+    const tagsHtml = tagKeys
+      .map(key => (TAG_LABELS[key] && (TAG_LABELS[key][currentLang] || TAG_LABELS[key].ru)) || key)
+      .map(label => `<span class="card-tag">${label}</span>`)
+      .join('');
 
     return `
       <div class="project-card" data-id="${p.id}" onclick="openProject(${p.id})">
@@ -1785,7 +1788,7 @@ function renderProjectCards() {
         </div>
         <div class="card-caption">
           <div class="card-title">${title}</div>
-          <div class="card-tags">${tags}</div>
+          <div class="card-tags">${tagsHtml}</div>
         </div>
       </div>
     `;

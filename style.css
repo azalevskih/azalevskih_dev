@@ -650,7 +650,7 @@ body[data-page="brief"] .nav-links a[data-page="brief"] {
   color: var(--black);
   background: var(--white);
   border: 1px solid var(--black);
-  border-radius: 6px;
+  border-radius: 0;
   padding: 13px 26px;
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
@@ -776,6 +776,9 @@ body[data-page="brief"] .nav-links a[data-page="brief"] {
 }
 
 .card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.04em;
