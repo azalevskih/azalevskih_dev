@@ -95,6 +95,7 @@ body {
 .nav-grid {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: var(--nav-h);
   align-items: center;
   height: var(--nav-h);
   gap: 24px;
@@ -142,18 +143,32 @@ body {
   color: var(--black);
 }
 
-/* Лого — svg-иконка по центру навигации */
+/* Лого — svg-иконка по центру навигации, специально крупнее
+   высоты самой панели, чтобы выступать за её верхний и нижний край */
 .nav-logo {
   justify-self: center;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 .nav-logo-icon {
-  height: 34px;
+  height: 92px;
   width: auto;
   display: block;
+  /* Белая обводка вокруг чёрного лого, чтобы оно не сливалось
+     с фоном там, где выступает за пределы панели */
+  filter:
+    drop-shadow(2px 0 0 var(--white))
+    drop-shadow(-2px 0 0 var(--white))
+    drop-shadow(0 2px 0 var(--white))
+    drop-shadow(0 -2px 0 var(--white))
+    drop-shadow(1.5px 1.5px 0 var(--white))
+    drop-shadow(-1.5px 1.5px 0 var(--white))
+    drop-shadow(1.5px -1.5px 0 var(--white))
+    drop-shadow(-1.5px -1.5px 0 var(--white));
 }
 
 /* Кнопка "Назад" — по умолчанию скрыта, появляется в потоке
@@ -986,7 +1001,7 @@ body[data-page="contact"] .nav-links a[data-page="contact"] {
   }
 
   .nav-logo-icon {
-    height: 24px;
+    height: 76px;
   }
 
   .nav-back-btn {
@@ -1067,7 +1082,7 @@ body[data-page="contact"] .nav-links a[data-page="contact"] {
   #main-nav { left: 8px; right: 8px; }
   #main-nav .container { padding: 0 12px; }
   .nav-grid { gap: 4px; }
-  .nav-logo-icon { height: 20px; }
+  .nav-logo-icon { height: 56px; }
   .nav-grid .nav-links a { font-size: 10px; }
   .lang-switch { font-size: 10px; padding: 4px 5px; }
 }
