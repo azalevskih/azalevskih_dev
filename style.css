@@ -625,7 +625,7 @@ body[data-page="brief"] .nav-links a[data-page="brief"] {
 }
 
 .cases-title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -634,10 +634,10 @@ body[data-page="brief"] .nav-links a[data-page="brief"] {
 }
 
 /* Переключатель "По отраслям" / "По типу работ" — два прямоугольных
-   таба, активный залит чёрным */
+   таба вплотную друг к другу (единая полоса), активный залит чёрным */
 .cases-mode-toggle {
   display: inline-flex;
-  gap: 12px;
+  gap: 0;
   margin-bottom: 24px;
 }
 
@@ -654,6 +654,10 @@ body[data-page="brief"] .nav-links a[data-page="brief"] {
   padding: 13px 26px;
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
+}
+
+.cases-mode-btn + .cases-mode-btn {
+  border-left: none;
 }
 
 .cases-mode-btn:hover {
@@ -683,9 +687,10 @@ body[data-page="brief"] .nav-links a[data-page="brief"] {
   font-family: inherit;
   font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   color: var(--black);
-  background: var(--gray-light);
+  background: #F5F5F5;
   border: none;
   border-radius: 999px;
   padding: 11px 22px;
@@ -694,7 +699,7 @@ body[data-page="brief"] .nav-links a[data-page="brief"] {
 }
 
 .cases-filter-pill:hover {
-  background: #dcdcd7;
+  background: #e8e8e8;
 }
 
 .cases-filter-pill.active {
