@@ -1771,9 +1771,16 @@ function renderProjectCards() {
 
   const visible = getVisibleProjects();
 
-  track.innerHTML = visible.map(p => {
+  // Раскладка первого блока: широкая (0) + квадратная (1), три квадратные (2-4),
+  // квадратная (5) + широкая (6), дальше — квадратные по умолчанию.
+  // Применяется только когда показаны все кейсы — при активном фильтре
+  // карточек может быть мало, и раскладка со span-2 будет выглядеть криво.
+  const wideIndexes = activeFilter ? [] : [0, 6];
+
+  track.innerHTML = visible.map((p, i) => {
     const title = (p.title && p.title[currentLang]) || (p.title && p.title.ru) || '';
     const bg = (p.cardImg || p.bannerImg) ? `background-image: url('${p.cardImg || p.bannerImg}');` : 'background: #f0f0f0;';
+    const sizeClass = wideIndexes.includes(i) ? ' card--wide' : '';
 
     const tagKeys = [...(p.categories?.type || []), ...(p.categories?.industry || [])];
     const tagsHtml = tagKeys
@@ -1782,7 +1789,7 @@ function renderProjectCards() {
       .join('');
 
     return `
-      <div class="project-card" data-id="${p.id}" onclick="openProject(${p.id})">
+      <div class="project-card${sizeClass}" data-id="${p.id}" onclick="openProject(${p.id})">
         <div class="card-media">
           <div class="card-bg" style="${bg}"></div>
         </div>

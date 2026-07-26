@@ -723,26 +723,42 @@ body[data-page="brief"] .nav-links a[data-page="brief"] {
 ============================================================ */
 .projects-track {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 40px 28px;
 }
 
 
 /* ============================================================
    КАРТОЧКА КЕЙСА
+
+   Раскладка первого блока кейсов чередует широкие (2 колонки)
+   и квадратные (1 колонка) карточки:
+   1. широкая + 2. квадратная
+   3–5. три квадратные
+   6. квадратная + 7. широкая
+   Остальные карточки (8+) — по умолчанию квадратные.
 ============================================================ */
 .project-card {
   width: 100%;
   cursor: pointer;
+  grid-column: span 1;
+}
+
+.project-card.card--wide {
+  grid-column: span 2;
 }
 
 .card-media {
   width: 100%;
-  aspect-ratio: 16 / 8.4;
+  aspect-ratio: 1 / 1;
   border-radius: 24px;
   overflow: hidden;
   position: relative;
   transition: filter 0.25s ease;
+}
+
+.project-card.card--wide .card-media {
+  aspect-ratio: 2.12 / 1;
 }
 
 .project-card:hover .card-media {
@@ -793,7 +809,16 @@ body[data-page="brief"] .nav-links a[data-page="brief"] {
     gap: 32px;
   }
 
-  .card-media { border-radius: 18px; }
+  .project-card,
+  .project-card.card--wide {
+    grid-column: span 1;
+  }
+
+  .card-media,
+  .project-card.card--wide .card-media {
+    aspect-ratio: 16 / 10;
+    border-radius: 18px;
+  }
 }
 
 
