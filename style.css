@@ -117,7 +117,10 @@ body {
 
 .nav-grid .lang-switch-group {
   display: flex;
-  gap: 6px;
+  gap: 0;
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 #main-nav.scrolled {
@@ -254,20 +257,26 @@ body[data-page="brief"] .nav-links a[data-page="brief"] {
   color: var(--black);
   background: none;
   cursor: pointer;
-  padding: 5px 9px;
-  border: 1px solid var(--hairline);
-  border-radius: 2px;
-  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  padding: 7px 14px;
+  border: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.lang-switch:not(:last-child) {
+  border-right: 1px solid var(--hairline);
 }
 
 .lang-switch:hover {
-  border-color: var(--black);
+  background: var(--gray-light);
 }
 
 .lang-switch.active {
   background: var(--black);
   color: var(--white);
-  border-color: var(--black);
+}
+
+.lang-switch.active:hover {
+  background: var(--black);
 }
 
 
@@ -1187,12 +1196,12 @@ body[data-page="brief"] .nav-links a[data-page="brief"] {
   }
 
   .lang-switch-group {
-    gap: 4px;
+    border-radius: 8px;
   }
 
   .lang-switch {
     font-size: 12px;
-    padding: 5px 7px;
+    padding: 6px 10px;
   }
 
   #banner {
